@@ -248,11 +248,9 @@ class Resource(object):
                 # taken from Django (_base_content_iter = False)
                 return False
             # taken from Django
-            value = result._container
-            if hasattr(value, '__iter__') and not isinstance(value, (bytes, six.string_types)):
-                return True
-            else:
+            if isinstance(result._container, (list, bytes, six.string_types)):
                 return False
+            return hasattr(result._container, '__iter__')
         else:
             return not result._is_string
 
